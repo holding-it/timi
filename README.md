@@ -14,7 +14,7 @@ sudo apt-get install drush -y
 
 sudo mysql -u root -p
 CREATE DATABASE timi;
-CREATE USER timi@localhost IDENTIFIED BY '******';
+CREATE USER timi@localhost IDENTIFIED BY '[your password]';
 GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES ON timi.* TO timi@localhost;
 FLUSH PRIVILEGES;
 exit
