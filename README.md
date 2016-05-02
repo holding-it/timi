@@ -1,7 +1,7 @@
-# TiMi
+### TiMi
 TiMi - Clean Miskolc mobile and web application, to be used as a public failure reporting system, enables citizens to report local problems such as illegal trash dumping, non-working street lights, broken tiles on sidewalks and illegal advertising boards.
 
-# Installation procedure
+### Installation procedure
 
 sudo apt-get update
 
@@ -12,7 +12,7 @@ sudo apt-get install libssh2-php -y<br>
 sudo apt-get install 7zip unzip -y<br>
 sudo apt-get install drush -y<br>
 
-# Create database
+### Create database
 sudo mysql -u root -p<br>
 CREATE DATABASE timi;<br>
 CREATE USER timi@localhost IDENTIFIED BY '[your password]';<br>
@@ -20,7 +20,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLE
 FLUSH PRIVILEGES;<br>
 exit<br>
 
-# Add the following lines to the php.ini file<br>
+### Add the following lines to the php.ini file<br>
 sudo nano /etc/php5/apache2/php.ini<br>
 
 expose_php = Off<br>
@@ -39,7 +39,7 @@ sudo mkdir -p /var/www/timi/public_html<br>
 sudo chown -R $USER:$USER /var/www/timi/public_html<br>
 sudo chmod -R 755 /var/www/timi<br>
 
-# Create Virtual Host<br>
+### Create Virtual Host<br>
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/timi.conf<br>
 sudo nano /etc/apache2/sites-enabled/timi.conf<br>
 
