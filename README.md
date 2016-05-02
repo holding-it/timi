@@ -20,28 +20,28 @@ GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLE
 FLUSH PRIVILEGES;<br>
 exit<br>
 
-# Add the following lines to the php.ini file
-sudo nano /etc/php5/apache2/php.ini
+# Add the following lines to the php.ini file<br>
+sudo nano /etc/php5/apache2/php.ini<br>
 
-expose_php = Off
-allow_url_fopen = Off
-max_execution_time = 300
-memory_limit = 256M
-display_errors = Off
-session.cache_limiter = nocache
-session.auto_start = 0
-magic_quotes_gpc = off
-register_globals = off
+expose_php = Off<br>
+allow_url_fopen = Off<br>
+max_execution_time = 300<br>
+memory_limit = 256M<br>
+display_errors = Off<br>
+session.cache_limiter = nocache<br>
+session.auto_start = 0<br>
+magic_quotes_gpc = off<br>
+register_globals = off<br>
 
-sudo a2enmod rewrite
+sudo a2enmod rewrite<br>
 
-sudo mkdir -p /var/www/timi/public_html
-sudo chown -R $USER:$USER /var/www/timi/public_html
-sudo chmod -R 755 /var/www/timi
+sudo mkdir -p /var/www/timi/public_html<br>
+sudo chown -R $USER:$USER /var/www/timi/public_html<br>
+sudo chmod -R 755 /var/www/timi<br>
 
-# Create Virtual Host
-sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/timi.conf
-sudo nano /etc/apache2/sites-enabled/timi.conf
+# Create Virtual Host<br>
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/timi.conf<br>
+sudo nano /etc/apache2/sites-enabled/timi.conf<br>
 
 <VirtualHost *:80>
 	ServerAdmin admin@test.com
