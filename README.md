@@ -47,11 +47,11 @@ sudo nano /etc/apache2/sites-enabled/timi.conf<br>
                 ServerName  example.com<br>
                 ServerAlias www.example.com<br>
                 DocumentRoot /var/www/timi/public_html<br>
-
+                
                 <Directory /var/www/timi/public_html><br>
                                AllowOverride All<br>
                 </Directory><br>
-
+                
                 ErrorLog ${APACHE_LOG_DIR}/timi.error.log<br>
                 CustomLog ${APACHE_LOG_DIR}/timi.access.log combined<br>
 </VirtualHost><br>
