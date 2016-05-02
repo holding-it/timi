@@ -57,30 +57,30 @@ sudo nano /etc/apache2/sites-enabled/timi.conf<br>
 
 sudo a2ensite timi.conf<br>
 
-sudo service apache2 restart
+sudo service apache2 restart<br>
 
-sudo mkdir -p /var/www/timi/github
-sudo cd /var/www/timi/github
-sudo wget https://github.com/timi/archive/timi.zip
-sudo cd /var/www/timi
-sudo drush dl drupal-7 --drupal-project-rename=drupal
-sudo cp var/www/timi/drupal/* var/www/timi/public_html
-sudo cd /var/www/timi/public_html drush site-install standard --db-url='mysql://timi:[db_pass]@localhost/timi' --site-name=Timi
-sudo rm /var/www/timi/public_html/sites/default/files
-sudo rm /var/www/timi/public_html/sites/all
-sudo cd /var/www/timi/github
-sudo unzip timi.zip
-sudo mysql -uroot -p timi<timi.sql
-sudo cp var/www/timi/github/all var/www/timi/public_html/sites
-sudo cp var/www/timi/github/files var/www/timi/public_html/sites/default
-sudo cp var/www/timi/github/mob var/www/timi/public_html
-sudo rm /var/www/timi/github
-sudo rm /var/www/timi/drupal
+sudo mkdir -p /var/www/timi/github<br>
+sudo cd /var/www/timi/github<br>
+sudo wget https://github.com/timi/archive/timi.zip<br>
+sudo cd /var/www/timi<br>
+sudo drush dl drupal-7 --drupal-project-rename=drupal<br>
+sudo cp var/www/timi/drupal/* var/www/timi/public_html<br>
+sudo cd /var/www/timi/public_html drush site-install standard --db-url='mysql://timi:[db_pass]@localhost/timi' --site-name=Timi<br>
+sudo rm /var/www/timi/public_html/sites/default/files<br>
+sudo rm /var/www/timi/public_html/sites/all<br>
+sudo cd /var/www/timi/github<br>
+sudo unzip timi.zip<br>
+sudo mysql -uroot -p timi<timi.sql<br>
+sudo cp var/www/timi/github/all var/www/timi/public_html/sites<br>
+sudo cp var/www/timi/github/files var/www/timi/public_html/sites/default<br>
+sudo cp var/www/timi/github/mob var/www/timi/public_html<br>
+sudo rm /var/www/timi/github<br>
+sudo rm /var/www/timi/drupal<br>
 
-sudo chmod 644 /var/www/timi/public_html/sites/default/settings.php
-sudo chown -R :www-data /var/www/timi/public_html/sites/default/files
-sudo chmod -R 775 /var/www/timi/public_html/sites/default/files
+sudo chmod 644 /var/www/timi/public_html/sites/default/settings.php<br>
+sudo chown -R :www-data /var/www/timi/public_html/sites/default/files<br>
+sudo chmod -R 775 /var/www/timi/public_html/sites/default/files<br>
 
-sudo cd /var/www/timi/public_html
-sudo drush updb -y
-sudo drush cc all -y
+sudo cd /var/www/timi/public_html<br>
+sudo drush updb -y<br>
+sudo drush cc all -y<br>
