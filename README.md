@@ -4,7 +4,7 @@ TiMi - Clean Miskolc mobile and web application, to be used as a public failure 
 #Installation procedure
 
 sudo apt-get update
----------------------------------------------------
+
 sudo apt-get install php5-cli -y
 sudo apt-get install php5-gd -y
 sudo apt-get install php5-curl -y
