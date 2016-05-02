@@ -43,7 +43,7 @@ sudo chmod -R 755 /var/www/timi<br>
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/timi.conf<br>
 sudo nano /etc/apache2/sites-enabled/timi.conf<br>
 
-<<VirtualHost *:80>>
+< VirtualHost *:80 >
 	ServerAdmin admin@test.com
 	ServerName  example.com
 	ServerAlias www.example.com
@@ -53,7 +53,7 @@ sudo nano /etc/apache2/sites-enabled/timi.conf<br>
 		</Directory>
 		ErrorLog ${APACHE_LOG_DIR}/timi.error.log
 		CustomLog ${APACHE_LOG_DIR}/timi.access.log combined
-</VirtualHost>
+< /VirtualHost >
 
 sudo a2ensite timi.conf
 
