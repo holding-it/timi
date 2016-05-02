@@ -5,19 +5,19 @@ TiMi - Clean Miskolc mobile and web application, to be used as a public failure 
 
 sudo apt-get update
 
-sudo apt-get install php5-cli -y
-sudo apt-get install php5-gd -y
-sudo apt-get install php5-curl -y
-sudo apt-get install libssh2-php -y
-sudo apt-get install 7zip unzip -y
-sudo apt-get install drush -y
+sudo apt-get install php5-cli -y<br>
+sudo apt-get install php5-gd -y<br>
+sudo apt-get install php5-curl -y<br>
+sudo apt-get install libssh2-php -y<br>
+sudo apt-get install 7zip unzip -y<br>
+sudo apt-get install drush -y<br>
 
-sudo mysql -u root -p
-CREATE DATABASE timi;
-CREATE USER timi@localhost IDENTIFIED BY '[your password]';
-GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES ON timi.* TO timi@localhost;
-FLUSH PRIVILEGES;
-exit
+sudo mysql -u root -p<br>
+CREATE DATABASE timi;<br>
+CREATE USER timi@localhost IDENTIFIED BY '[your password]';<br>
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES ON timi.* TO timi@localhost;<br>
+FLUSH PRIVILEGES;<br>
+exit<br>
 
 # Add the following lines to the php.ini file
 sudo nano /etc/php5/apache2/php.ini
