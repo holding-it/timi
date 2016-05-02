@@ -1,7 +1,7 @@
 # TiMi
 TiMi - Clean Miskolc mobile and web application, to be used as a public failure reporting system, enables citizens to report local problems such as illegal trash dumping, non-working street lights, broken tiles on sidewalks and illegal advertising boards.
 
-#Installation procedure
+# Installation procedure
 
 sudo apt-get update
 
@@ -12,6 +12,7 @@ sudo apt-get install libssh2-php -y<br>
 sudo apt-get install 7zip unzip -y<br>
 sudo apt-get install drush -y<br>
 
+# Create database
 sudo mysql -u root -p<br>
 CREATE DATABASE timi;<br>
 CREATE USER timi@localhost IDENTIFIED BY '[your password]';<br>
