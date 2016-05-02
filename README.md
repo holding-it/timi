@@ -42,19 +42,17 @@ sudo chmod -R 755 /var/www/timi<br>
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/timi.conf<br>
 sudo nano /etc/apache2/sites-enabled/timi.conf<br>
 
-<VirtualHost *:80>
-  ServerAdmin admin@test.com
-  ServerName  example.com
-  ServerAlias www.example.com
-  DocumentRoot /var/www/timi/public_html
-  
-  <Directory /var/www/timi/public_html>
-                 AllowOverride All
-  </Directory>
-  
-  ErrorLog ${APACHE_LOG_DIR}/timi.error.log
-  CustomLog ${APACHE_LOG_DIR}/timi.access.log combined
-</VirtualHost>
+<VirtualHost *:80><br>
+  ServerAdmin admin@test.com<br>
+  ServerName  example.com<br>
+  ServerAlias www.example.com<br>
+  DocumentRoot /var/www/timi/public_html<br>
+  <Directory /var/www/timi/public_html><br>
+                   AllowOverride All<br>
+  </Directory><br>
+  ErrorLog ${APACHE_LOG_DIR}/timi.error.log<br>
+  CustomLog ${APACHE_LOG_DIR}/timi.access.log combined<br>
+</VirtualHost><br>
 
 sudo a2ensite timi.conf<br>
 
