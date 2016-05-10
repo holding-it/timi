@@ -64,9 +64,28 @@
 		}
 		echo "],";
 		
+		// Statuses
+		echo "\"statuses\":[";
+		$select = "SELECT id, status_id, text, language_id FROM mob_statuses WHERE language_id=$getlanguage AND inactive=0 AND public=1";
+		$sql = mysqli_query($con,$select);
+		$max = mysqli_num_rows($sql);
+		$i = 0;
+		while ($result = mysqli_fetch_array($sql)) {
+			$id = $result["id"];
+			$status_id = $result["status_id"];
+			$text = $result["text"];
+			$language = $result["language_id"];
+			?>
+			{"id": "<?=$id;?>", "status_id": "<?=$status_id;?>", "text": "<?=$text;?>", "language": "<?=$language;?>"}
+			<?php
+			if ($i<$max-1) echo ",";
+			$i++;	
+		}
+		echo "],";
+		
 		// Main categories
 		echo "\"categories\":[";
-		$select = "SELECT id, category_id, name, language_id FROM mob_categories WHERE language_id=$getlanguage";
+		$select = "SELECT id, category_id, name, language_id FROM mob_categories WHERE language_id=$getlanguage AND inactive=0";
 		$sql = mysqli_query($con,$select);
 		$max = mysqli_num_rows($sql);
 		$i = 0;
@@ -85,7 +104,7 @@
 		
 		// Subcategories
 		echo "\"subcategories\":[";
-		$select = "SELECT id, subcategory_id, category_id, name, language_id FROM mob_subcategories WHERE language_id=$getlanguage";
+		$select = "SELECT id, subcategory_id, category_id, name, language_id FROM mob_subcategories WHERE language_id=$getlanguage AND inactive=0";
 		$sql = mysqli_query($con,$select);
 		$max = mysqli_num_rows($sql);
 		$i = 0;
