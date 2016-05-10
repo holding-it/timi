@@ -79,7 +79,7 @@ service apache2 restart
 #Git clone the application source files
 mkdir -p /var/www/timi/github
 cd /var/www/timi/github
-wget https://github.com/holding-it/timi/archive/timi-0.9.97.zip
+wget https://github.com/holding-it/timi/archive/timi-0.9.98.zip
 cd /var/www/timi
 drush dl drupal-7 --drupal-project-rename=drupal -y
 cp -avr /var/www/timi/drupal/* /var/www/timi/public_html
@@ -96,10 +96,10 @@ drush sql-drop --database=default --yes
 
 cd /var/www/timi/github
 #
-unzip /var/www/timi/github/timi-0.9.97.zip
-mysql -uroot  -h$DATABASE_HOST -p$MYSQL_ROOT_PASSWORD $DATABASE_NAME < /var/www/timi/github/timi-timi-0.9.97/db/timi.sql
+unzip /var/www/timi/github/timi-0.9.98.zip
+mysql -uroot  -h$DATABASE_HOST -p$MYSQL_ROOT_PASSWORD $DATABASE_NAME < /var/www/timi/github/timi-0.9.98/db/timi.sql
 
-cp -avr /var/www/timi/github/timi-timi-0.9.97/all /var/www/timi/public_html/sites
+cp -avr /var/www/timi/github/timi-0.9.98/all /var/www/timi/public_html/sites
 unzip /var/www/timi/public_html/sites/all/libraries.zip -d /var/www/timi/public_html/sites/all
 rm /var/www/timi/public_html/sites/all/libraries.zip
 
@@ -109,11 +109,11 @@ rm /var/www/timi/public_html/sites/all/modules.zip
 unzip /var/www/timi/public_html/sites/all/themes.zip -d /var/www/timi/public_html/sites/all
 rm /var/www/timi/public_html/sites/all/themes.zip
 
-cp -avr /var/www/timi/github/timi-timi-0.9.97/files /var/www/timi/public_html/sites/default
+cp -avr /var/www/timi/github/timi-0.9.98/files /var/www/timi/public_html/sites/default
 unzip /var/www/timi/public_html/sites/default/files/files.zip  -d /var/www/timi/public_html/sites/default
 rm /var/www/timi/public_html/sites/default/files/files.zip
 
-cp -avr /var/www/timi/github/timi-timi-0.9.97/mob /var/www/timi/public_html
+cp -avr /var/www/timi/github/timi-0.9.98/mob /var/www/timi/public_html
 rm -rf /var/www/timi/github
 rm -rf /var/www/timi/drupal
 
