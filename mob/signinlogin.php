@@ -4,12 +4,18 @@
 // Uj user regisztracioja vagy letezo user jelszo ellenorzese
 //
 
-$icon = mysql_connect("localhost","timi","PcaqYs5HwFsQV7xG");
-if(!$icon)
-{
-die('Nem lehet csatlakozni : ' . mysql_error());
-}
-mysql_select_db("timi", $icon) or die("Nem megfelelo adatbazis");
+// Drupal betöltése
+define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+chdir(DRUPAL_ROOT);
+require './includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_DATABASE);
+
+global $databases;
+$username = $databases["default"]["default"]["username"];
+$password = $databases["default"]["default"]["password"];
+$database = $databases["default"]["default"]["database"];
+$icon = mysql_connect("localhost",$username,$password);
+mysql_select_db($database, $icon);
 
 //
 // Ha atjott az email cim a mobil eszkozrol

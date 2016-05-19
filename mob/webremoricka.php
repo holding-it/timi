@@ -1,13 +1,15 @@
 <?php
 
 header("Content-type: text/html; charset=UTF-8");
-$con=mysqli_connect("localhost","timi","PcaqYs5HwFsQV7xG","timi");
-
-// A kapcsolat ellenorzese
-if (mysqli_connect_errno())
-  {
-    echo "Nem sikerult a MySQL kapcsolodas: " . mysqli_connect_error();    
-  }
+define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+chdir(DRUPAL_ROOT);
+require './includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+global $databases;
+$username = $databases["default"]["default"]["username"];
+$password = $databases["default"]["default"]["password"];
+$database = $databases["default"]["default"]["database"];
+$con = mysqli_connect("localhost",$username,$password,$database);
 
 mysqli_query($con,"SET NAMES utf8");
 mysqli_query($con,"SET collation_connection = 'utf8'");
