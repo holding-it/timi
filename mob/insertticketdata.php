@@ -56,12 +56,16 @@ $user_agent = $_SERVER['HTTP_USER_AGENT'];
     $user_browser   =   getBrowser();
 
 $output = array();
-$icon = mysql_connect("localhost","timi","PcaqYs5HwFsQV7xG");
-if(!$icon)
-{
-die('Nem lehet csatlakozni : ' . mysql_error());
-}
-mysql_select_db("timi", $icon)or die("Nem megfelelo adatbazis");
+define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+chdir(DRUPAL_ROOT);
+require './includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_DATABASE);
+global $databases;
+$username = $databases["default"]["default"]["username"];
+$password = $databases["default"]["default"]["password"];
+$database = $databases["default"]["default"]["database"];
+$icon = mysql_connect("localhost",$username,$password) or die("Nem lehet csatlakozni : " . mysql_error());
+mysql_select_db($database, $icon)or die("Nem megfelelo adatbazis");
 
 // echo json_encode($data);
 $owner_v= $_POST['fbid'];
@@ -73,6 +77,8 @@ $description_v = $_POST['description'];
 $file_v = $_POST['file'];
 $subcategory_id_v = $_POST['subcategory_id'];
 $language_v = $_POST['language'];
+$name_v = $_POST['name'];
+$name = round($name_v/1000);
 
 // Uj hibajegy keszul, amelynek ownerid-je itt mar megvan.
 // Bekerules utan statusza: "Uj hibajegy" lesz, ennek kodja: 1
@@ -106,23 +112,25 @@ if (strlen($ImageData)>100)
 	//header('Content-Type: image/jpeg');
 	// Erkezett kep es raadasul megfelelo meretu
 	// $filename='photos/img'.time().'.jpg';
-	$filename='photos/img'.date('YmdHis').'.jpg';	
-	while (file_exists($filename)) {
-		$filename='photos/img'.date('YmdHis').'.jpg';
-	}
-	$filename_full='/mob/photos/img'.date('YmdHis').'.jpg';	
+	$date = date("Y-m-d",time());
+	$ticketgallery = "../sites/default/files/ticket/images/$date";
+	$isdirexist = file_exists($ticketgallery);
+	if ($isdirexist==false) mkdir($ticketgallery);
+	
+	
+	$filename="$ticketgallery/img_".date('Ymd_His',$name).'.jpg';	
 	$title_v = $user_os.date('-Y-m-d-H-i-s');
 	//imagejpeg($img, $filename); // Menti a kepet a photos mappaba.		
-	file_put_contents($filename, $ImageData);
 	mysql_query("SET NAMES utf8");
 	mysql_query("SET collation_connection = 'utf8'");	
-	$insert1 = mysql_query("INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename_full."')");		
+	$filename = str_replace("..","",$filename);
+	$insert1 = mysql_query("INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");		
 } else {
 	header('Content-Type: image/jpeg');
 	// Nem erkezett kep
 	// $filename='photos/nincs_kep_feltoltve.jpg'
 	$title_v = $user_os.date('-Y-m-d-H-i-s');
-	$filename='photos/nincs_kep_feltoltve.jpg';				
+	$filename='/sites/default/files/ticket/images/nincs_kep_feltoltve.jpg';				
 	mysql_query("SET NAMES utf8");
 	mysql_query("SET collation_connection = 'utf8'");	
 	$insert1 = mysql_query("INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");

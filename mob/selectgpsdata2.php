@@ -1,8 +1,13 @@
 <?php
-$con = mysqli_connect("localhost","timi","PcaqYs5HwFsQV7xG","timi");
-if (!$con) {
-    die('Could not connect: ' . mysqli_error($con));
-}
+define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+chdir(DRUPAL_ROOT);
+require './includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+global $databases;
+$username = $databases["default"]["default"]["username"];
+$password = $databases["default"]["default"]["password"];
+$database = $databases["default"]["default"]["database"];
+$con = mysqli_connect("localhost",$username,$password,$database);
 mysqli_set_charset($con,"utf8");
 
 

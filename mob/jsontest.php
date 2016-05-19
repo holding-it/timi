@@ -1,19 +1,14 @@
 <?php
+define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+chdir(DRUPAL_ROOT);
+require './includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_DATABASE);
+global $databases;
+$username = $databases["default"]["default"]["username"];
+$password = $databases["default"]["default"]["password"];
+$database = $databases["default"]["default"]["database"];
+$con = mysqli_connect("localhost",$username,$password,$database);
+mysqli_set_charset($con,"utf8");
 
-$icon = mysql_connect("localhost","root","cwr11SQL");
-if(!$icon)
-{
-die('Nem lehet csatlakozni : ' . mysql_error());
-}
-mysql_select_db("appdb", $icon) or die("Nem megfelelo adatbazis");
-mysql_query("SET NAMES utf8");
-mysql_query("SET collation_connection = 'utf8'");
-$sql=mysql_query("select * from mobkat");
-
-while($row=mysql_fetch_assoc($sql))
-    $output[]=$row;
-
-echo(json_encode($output));// this will print the output in json
-
-mysql_close($icon);
+mysqli_close($con);
 ?>

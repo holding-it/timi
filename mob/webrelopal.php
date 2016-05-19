@@ -1,7 +1,15 @@
 <?php
 
 header("Content-type: text/html; charset=UTF-8");
-$con=mysqli_connect("localhost","root","cwr11SQL","appdb");
+define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+chdir(DRUPAL_ROOT);
+require './includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+global $databases;
+$username = $databases["default"]["default"]["username"];
+$password = $databases["default"]["default"]["password"];
+$database = $databases["default"]["default"]["database"];
+$con = mysqli_connect("localhost",$username,$password,$database);
 
 // A kapcsolat ellenorzese
 if (mysqli_connect_errno())
