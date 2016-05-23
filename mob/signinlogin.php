@@ -5,17 +5,18 @@
 //
 
 // Drupal betöltése
-define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+define('DRUPAL_ROOT', '/var/www/timi');
 chdir(DRUPAL_ROOT);
 require './includes/bootstrap.inc';
 drupal_bootstrap(DRUPAL_BOOTSTRAP_DATABASE);
 
 global $databases;
+$host = $databases["default"]["default"]["host"];
 $username = $databases["default"]["default"]["username"];
 $password = $databases["default"]["default"]["password"];
 $database = $databases["default"]["default"]["database"];
-$icon = mysql_connect("localhost",$username,$password);
-mysql_select_db($database, $icon);
+$con = mysqli_connect($host,$username,$password,$database);
+mysqli_set_charset($con,"utf8");
 
 //
 // Ha atjott az email cim a mobil eszkozrol
@@ -35,10 +36,10 @@ $status = '0';
 if (filter_var($email_v, FILTER_VALIDATE_EMAIL))
 {
  // Ha jo az email cim formatuma
- mysql_query("SET NAMES utf8");
- mysql_query("SET collation_connection = 'utf8'");
- $result = mysql_query("select mob_owners.id, mob_owners.password from mob_owners where mob_owners.email = '".$email_v."'");
- while($row = mysql_fetch_array($result))
+ mysqli_query($con,"SET NAMES utf8");
+ mysqli_query($con,"SET collation_connection = 'utf8'");
+ $result = mysqli_query($con,"select mob_owners.id, mob_owners.password from mob_owners where mob_owners.email = '".$email_v."'");
+ while($row = mysqli_fetch_array($result))
   {
     // Letezik ilyen felhasznalo
     $ownerid = $row[0];
@@ -51,11 +52,11 @@ if (filter_var($email_v, FILTER_VALIDATE_EMAIL))
  {
    if (strlen($name_v)>4)
     {
-	mysql_query("SET NAMES utf8");
-	mysql_query("SET collation_connection = 'utf8'");
-	$sql=mysql_query("insert into mob_owners (name, email, password) values ('".$name_v."', '".$email_v."', '".$md5passwd_v."') ");
-	$result2 = mysql_query("select mob_owners.id, mob_owners.password from mob_owners where mob_owners.email = '".$email_v."' ");
-	while($row = mysql_fetch_array($result2))
+	mysqli_query($con,"SET NAMES utf8");
+	mysqli_query($con,"SET collation_connection = 'utf8'");
+	$sql=mysqli_query($con,"insert into mob_owners (name, email, password) values ('".$name_v."', '".$email_v."', '".$md5passwd_v."') ");
+	$result2 = mysqli_query($con,"select mob_owners.id, mob_owners.password from mob_owners where mob_owners.email = '".$email_v."' ");
+	while($row = mysqli_fetch_array($result2))
 	{
 	    $ownerid = $row[0];
 	    $status = '3';
@@ -73,10 +74,10 @@ if ($status == 5)
   if ((strlen($facebook_id_v)>8) && (ctype_digit($facebook_id_v)))
   {
       // Bár rossz volt az email, de van Facebook ID, amely legalabb 9 karakteres es csupa szamjegybol all
-      mysql_query("SET NAMES utf8");
-      mysql_query("SET collation_connection = 'utf8'");
-      $result = mysql_query("select mob_owners.id, mob_owners.password from mob_owners where mob_owners.facebook_id = '".$facebook_id_v."'");
-      while($row = mysql_fetch_array($result))
+      mysqli_query($con,"SET NAMES utf8");
+      mysqli_query($con,"SET collation_connection = 'utf8'");
+      $result = mysqli_query($con,"select mob_owners.id, mob_owners.password from mob_owners where mob_owners.facebook_id = '".$facebook_id_v."'");
+      while($row = mysqli_fetch_array($result))
         {
         // Letezik ilyen Facebook felhasznalo
         $ownerid = $row[0];
@@ -88,11 +89,11 @@ if ($status == 5)
       {
         if (strlen($name_v)>4)
         {
-	  mysql_query("SET NAMES utf8");
-	  mysql_query("SET collation_connection = 'utf8'");
-	  $sql=mysql_query("insert into mob_owners (name, facebook_id, password) values ('".$name_v."', '".$facebook_id_v."', '".$md5passwd_v."') ");
-	  $result2 = mysql_query("select mob_owners.id, mob_owners.password from mob_owners where mob_owners.facebook_id = '".$facebook_id_v."' ");
-	  while($row = mysql_fetch_array($result2))
+	  mysqli_query($con,"SET NAMES utf8");
+	  mysqli_query($con,"SET collation_connection = 'utf8'");
+	  $sql=mysqli_query($con,"insert into mob_owners (name, facebook_id, password) values ('".$name_v."', '".$facebook_id_v."', '".$md5passwd_v."') ");
+	  $result2 = mysqli_query($con,"select mob_owners.id, mob_owners.password from mob_owners where mob_owners.facebook_id = '".$facebook_id_v."' ");
+	  while($row = mysqli_fetch_array($result2))
 	    {
 	      $ownerid = $row[0];
 	      $status = '3';
@@ -110,6 +111,6 @@ if ($status == 5)
 $output = array('status' => $status, 'ownerid' => $ownerid); // Igy meg nem lesz tomb!
 echo(json_encode($output));
 
-mysql_close($icon);
+mysqli_close($con);
 
 ?>

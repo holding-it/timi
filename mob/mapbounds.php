@@ -1,5 +1,5 @@
 <?php
-define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+define('DRUPAL_ROOT', '/var/www/timi');
 chdir(DRUPAL_ROOT);
 require './includes/bootstrap.inc';
 drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
