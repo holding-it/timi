@@ -3,4 +3,4 @@ TiMi - Clean Miskolc mobile and web application, to be used as a public failure 
 
 # Installation
 
-After some bug fix, the new install script is uploaded as installscript1000.sh
+After some bug fix, the new install script is uploaded as installscript1001.sh
