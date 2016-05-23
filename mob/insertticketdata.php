@@ -56,16 +56,17 @@ $user_agent = $_SERVER['HTTP_USER_AGENT'];
     $user_browser   =   getBrowser();
 
 $output = array();
-define('DRUPAL_ROOT', '/vhost/mholding/timi.hu');
+define('DRUPAL_ROOT', '/var/www/timi');
 chdir(DRUPAL_ROOT);
 require './includes/bootstrap.inc';
 drupal_bootstrap(DRUPAL_BOOTSTRAP_DATABASE);
 global $databases;
+$host = $databases["default"]["default"]["host"];
 $username = $databases["default"]["default"]["username"];
 $password = $databases["default"]["default"]["password"];
 $database = $databases["default"]["default"]["database"];
-$icon = mysql_connect("localhost",$username,$password) or die("Nem lehet csatlakozni : " . mysql_error());
-mysql_select_db($database, $icon)or die("Nem megfelelo adatbazis");
+$con = mysqli_connect($host,$username,$password,$database);
+mysqli_set_charset($con,"utf8");
 
 // echo json_encode($data);
 $owner_v= $_POST['fbid'];
@@ -82,19 +83,17 @@ $name = round($name_v/1000);
 
 // Uj hibajegy keszul, amelynek ownerid-je itt mar megvan.
 // Bekerules utan statusza: "Uj hibajegy" lesz, ennek kodja: 1
-mysql_query("SET NAMES utf8");
-mysql_query("SET collation_connection = 'utf8'");
-$insert3 = mysql_query("INSERT INTO mob_tickets (ownerid, subcategory_id, description, locationname, latitude, longitude, date, ticketgroup_id, language_id) 
+$insert3 = mysqli_query($con,"INSERT INTO mob_tickets (ownerid, subcategory_id, description, locationname, latitude, longitude, date, ticketgroup_id, language_id) 
     VALUES ('".$owner_v."', '".$subcategory_id_v."', '".$description_v."', '".$locationname_v."', '".$latitude_v."', '".$longitude_v."', now(), 0, $language_v)");
 
 // A legutobb beszurt rekord szama kerul a $ticket_v valtozoba
-$ticket_v = mysql_insert_id();
+$ticket_v = mysqli_insert_id();
 
 // A mob_statuslogs tablaba keruljon be a hibajegy status valtozasa: uj jegy
 // a ticket.id mar megvan a $ticket_v valtozoban
-mysql_query("SET NAMES utf8");
-mysql_query("SET collation_connection = 'utf8'");
-$insert5 = mysql_query("INSERT INTO mob_statuslogs (ticket_id, status_id, changestatus) VALUES ('".$ticket_v."', 27, now())");
+mysqli_query($con,"SET NAMES utf8");
+mysqli_query($con,"SET collation_connection = 'utf8'");
+$insert5 = mysqli_query($con,"INSERT INTO mob_statuslogs (ticket_id, status_id, changestatus) VALUES ('".$ticket_v."', 27, now())");
 
 // Az erkezo base64 formatumu stringet keppe alakitja,
 // es menti JPEG fajlkent a photos mappaba.
@@ -121,24 +120,24 @@ if (strlen($ImageData)>100)
 	$filename="$ticketgallery/img_".date('Ymd_His',$name).'.jpg';	
 	$title_v = $user_os.date('-Y-m-d-H-i-s');
 	//imagejpeg($img, $filename); // Menti a kepet a photos mappaba.		
-	mysql_query("SET NAMES utf8");
-	mysql_query("SET collation_connection = 'utf8'");	
+	mysqli_query($con,"SET NAMES utf8");
+	mysqli_query($con,"SET collation_connection = 'utf8'");	
 	$filename = str_replace("..","",$filename);
-	$insert1 = mysql_query("INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");		
+	$insert1 = mysqli_query($con,"INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");		
 } else {
 	header('Content-Type: image/jpeg');
 	// Nem erkezett kep
 	// $filename='photos/nincs_kep_feltoltve.jpg'
 	$title_v = $user_os.date('-Y-m-d-H-i-s');
 	$filename='/sites/default/files/ticket/images/nincs_kep_feltoltve.jpg';				
-	mysql_query("SET NAMES utf8");
-	mysql_query("SET collation_connection = 'utf8'");	
-	$insert1 = mysql_query("INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");
+	mysqli_query($con,"SET NAMES utf8");
+	mysqli_query($con,"SET collation_connection = 'utf8'");	
+	$insert1 = mysqli_query($con,"INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");
 }
 // Kiuriti a memoriat
 	imagedestroy($img);
 
-mysql_close($icon);
+mysqli_close($con);
 	
 if($insert1)
 {
