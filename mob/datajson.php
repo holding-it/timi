@@ -2,7 +2,8 @@
 	header('Access-Control-Allow-Origin: *');
 
 	// Database connection
-	define('DRUPAL_ROOT', '/var/www/timi');
+	$root = $_SERVER['DOCUMENT_ROOT'];
+	define('DRUPAL_ROOT', $root);
 	chdir(DRUPAL_ROOT);
 	require './includes/bootstrap.inc';
 	drupal_bootstrap(DRUPAL_BOOTSTRAP_DATABASE);
