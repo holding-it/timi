@@ -88,12 +88,12 @@ $insert3 = mysqli_query($con,"INSERT INTO mob_tickets (ownerid, subcategory_id, 
     VALUES ('".$owner_v."', '".$subcategory_id_v."', '".$description_v."', '".$locationname_v."', '".$latitude_v."', '".$longitude_v."', now(), 0, $language_v)");
 
 // A legutobb beszurt rekord szama kerul a $ticket_v valtozoba
-$ticket_v = mysqli_insert_id();
+$ticket_v = mysqli_insert_id($con);
 
 // A mob_statuslogs tablaba keruljon be a hibajegy status valtozasa: uj jegy
 // a ticket.id mar megvan a $ticket_v valtozoban
-mysqli_query($con,"SET NAMES utf8");
-mysqli_query($con,"SET collation_connection = 'utf8'");
+/*mysqli_query($con,"SET NAMES utf8");
+mysqli_query($con,"SET collation_connection = 'utf8'");*/
 $insert5 = mysqli_query($con,"INSERT INTO mob_statuslogs (ticket_id, status_id, changestatus) VALUES ('".$ticket_v."', 27, now())");
 
 // Az erkezo base64 formatumu stringet keppe alakitja,
@@ -121,8 +121,8 @@ if (strlen($ImageData)>100)
 	$filename="$ticketgallery/img_".date('Ymd_His',$name).'.jpg';	
 	$title_v = $user_os.date('-Y-m-d-H-i-s');
 	//imagejpeg($img, $filename); // Menti a kepet a photos mappaba.		
-	mysqli_query($con,"SET NAMES utf8");
-	mysqli_query($con,"SET collation_connection = 'utf8'");	
+	/*mysqli_query($con,"SET NAMES utf8");
+	mysqli_query($con,"SET collation_connection = 'utf8'");	*/
 	$filename = str_replace("..","",$filename);
 	$insert1 = mysqli_query($con,"INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");		
 } else {
@@ -131,8 +131,8 @@ if (strlen($ImageData)>100)
 	// $filename='photos/nincs_kep_feltoltve.jpg'
 	$title_v = $user_os.date('-Y-m-d-H-i-s');
 	$filename='/sites/default/files/ticket/images/nincs_kep_feltoltve.jpg';				
-	mysqli_query($con,"SET NAMES utf8");
-	mysqli_query($con,"SET collation_connection = 'utf8'");	
+	/*mysqli_query($con,"SET NAMES utf8");
+	mysqli_query($con,"SET collation_connection = 'utf8'");	*/
 	$insert1 = mysqli_query($con,"INSERT INTO mob_pictures (ticket_id,title,filename) VALUES ('".$ticket_v."','".$title_v."', '".$filename."')");
 }
 // Kiuriti a memoriat
