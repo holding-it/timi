@@ -5,7 +5,7 @@ TiMi - Clean Miskolc mobile and web application, to be used as a public failure 
 After some bug fix, the new install script is uploaded as installscript1004.sh
 
 # Changelog
-The issue counter the top right of the screen dynamically works now
+The issue counter the top right of the screen dynamically works now. It was a bug in JSON query.
 
 # Usage
 The registration of a new sub-domain completed: timi.miskolc.hu. The sub-domain point out the IP address: 178.239.182.134
