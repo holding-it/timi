@@ -84,8 +84,8 @@ $name = round($name_v/1000);
 
 // Uj hibajegy keszul, amelynek ownerid-je itt mar megvan.
 // Bekerules utan statusza: "Uj hibajegy" lesz, ennek kodja: 1
-$insert3 = mysqli_query($con,"INSERT INTO mob_tickets (ownerid, subcategory_id, description, locationname, latitude, longitude, date, ticketgroup_id, language_id) 
-    VALUES ('".$owner_v."', '".$subcategory_id_v."', '".$description_v."', '".$locationname_v."', '".$latitude_v."', '".$longitude_v."', now(), 0, $language_v)");
+$insert3 = mysqli_query($con,"INSERT INTO mob_tickets (ownerid, subcategory_id, description, locationname, latitude, longitude, date, ticketgroup_id, language_id, act_status) 
+    VALUES ('".$owner_v."', '".$subcategory_id_v."', '".$description_v."', '".$locationname_v."', '".$latitude_v."', '".$longitude_v."', now(), 0, $language_v, 27)");
 
 // A legutobb beszurt rekord szama kerul a $ticket_v valtozoba
 $ticket_v = mysqli_insert_id($con);
