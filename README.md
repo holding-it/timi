@@ -9,5 +9,5 @@ The issue counter the top right of the screen dynamically works now. It was a bu
 
 # Usage
 The registration of a new sub-domain completed: timi.miskolc.hu. The sub-domain point out the IP address: 178.239.182.134
-Because of Apache virtual host setting the application is not reachable with IP address, exclusively with the URL: http://timi.miskolc.hu.
+Because of Apache virtual host setting the application is not reachable by IP address, exclusively by the URL: http://timi.miskolc.hu.
 
