@@ -3,6 +3,7 @@ TiMi - Clean Miskolc mobile and web application, to be used as a public failure 
 
 # Installation
 After some bug fix, the new install script is uploaded as installscript1005.sh
+
 WARNING!
 - After a new installation procedure the earlier created polygons and multi-polygons will be deleted.
 - It is also deleted from the users that you created earlier.
