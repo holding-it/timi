@@ -69,17 +69,34 @@ $database = $databases["default"]["default"]["database"];
 $con = mysqli_connect($host,$username,$password,$database);
 mysqli_set_charset($con,"utf8");
 
+function clean_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
+
 // echo json_encode($data);
-$owner_v= $_POST['fbid'];
-$name_v= $_POST['name'];
-$locationname_v= $_POST['locationname'];
-$latitude_v= $_POST['latitude'];
-$longitude_v = $_POST['longitude'];
-$description_v = $_POST['description'];
-$file_v = $_POST['file'];
-$subcategory_id_v = $_POST['subcategory_id'];
-$language_v = $_POST['language'];
-$name_v = $_POST['name'];
+$owner_v= clean_input($_POST['fbid']);
+$owner_v = mysqli_real_escape_string($con,$owner_v);
+$name_v= clean_input($_POST['name']);
+$name_v = mysqli_real_escape_string($con,$name_v);
+$locationname_v= clean_input($_POST['locationname']);
+$locationname_v = mysqli_real_escape_string($con,$locationname_v);
+$latitude_v= clean_input($_POST['latitude']);
+$latitude_v = mysqli_real_escape_string($con,$latitude_v);
+$longitude_v = clean_input($_POST['longitude']);
+$longitude_v = mysqli_real_escape_string($con,$longitude_v);
+$description_v = clean_input($_POST['description']);
+$description_v = mysqli_real_escape_string($con,$description_v);
+$file_v = clean_input($_POST['file']);
+$file_v = mysqli_real_escape_string($con,$file_v);
+$subcategory_id_v = clean_input($_POST['subcategory_id']);
+$subcategory_id_v = mysqli_real_escape_string($con,$subcategory_id_v);
+$language_v = clean_input($_POST['language']);
+$language_v = mysqli_real_escape_string($con,$language_v);
+$name_v = clean_input($_POST['name']);
+$name_v = mysqli_real_escape_string($con,$name_v);
 $name = round($name_v/1000);
 
 // Uj hibajegy keszul, amelynek ownerid-je itt mar megvan.

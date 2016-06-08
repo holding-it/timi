@@ -1,5 +1,6 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+$base_url = $GLOBALS['base_url'];
 define('DRUPAL_ROOT', $root);
 chdir(DRUPAL_ROOT);
 require './includes/bootstrap.inc';
@@ -12,14 +13,24 @@ $database = $databases["default"]["default"]["database"];
 $con = mysqli_connect($host,$username,$password,$database);
 mysqli_set_charset($con,"utf8");
 
+function clean_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
 
 echo "{
     \"type\": \"FeatureCollection\",
     \"features\": [";
-$kat = $_GET["Kat"];
-$stat = $_GET["Stat"];
-$ticket = $_GET["Ticket"];
-$langcode = $_GET["Langcode"];
+$kat = clean_input($_GET["Kat"]);
+$kat = mysqli_real_escape_string($con,$kat);
+$stat = clean_input($_GET["Stat"]);
+$stat = mysqli_real_escape_string($con,$stat);
+$ticket = clean_input($_GET["Ticket"]);
+$ticket = mysqli_real_escape_string($con,$ticket);
+$langcode = clean_input($_GET["Langcode"]);
+$langcode = mysqli_real_escape_string($con,$langcode);
 $islangid = is_numeric($langcode);
 if ($islangid==true) {
 	$sql = mysqli_query($con,"SELECT code FROM mob_languages WHERE language_id=$langcode");
@@ -49,12 +60,8 @@ while($row = mysqli_fetch_array($result)) {
 	if ($cim!="") $cim = "<b>$cim</b><br>";
 	$szoveg = $row[3];
 	if ($szoveg=="") $szoveg = $row2[0];
-	$kep = $row[4];
+	$kep = $base_url."/..".$row[4];
 	$language = $row[5];
-	$kep="http://www.timi.hu".$kep;
-	$mit = array("timi.huphotos");	
-	$mire = array("timi.hu/mob/photos");
-	$kep = str_replace($mit,$mire,$kep);
 	echo "    
 		{
             \"type\": \"Feature\",
@@ -85,11 +92,7 @@ while($row = mysqli_fetch_array($result)) {
 	$cim = $row[2];
 	if ($cim!="") $cim = "<b>$cim</b><br>";
 	$szoveg = $row[3];
-	$kep = $row[4];
-	$kep="http://www.timi.hu".$kep;
-	$mit = array("timi.huphotos");	
-	$mire = array("timi.hu/mob/photos");
-	$kep = str_replace($mit,$mire,$kep);
+	$kep = $base_url."/..".$row[4];
 	if ($szoveg=="") $szoveg = $row[5];
 	if ($ticket!="") {
 		$subcategory = $row[5];

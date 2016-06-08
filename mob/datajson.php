@@ -17,9 +17,19 @@
 	mysqli_set_charset($con,"utf8");
 	
 	// GET
-	$getlanguage = $_GET["Language"];
-	$getversion = $_GET["Version"];
-	$gettask = $_GET["Task"];
+	function clean_input($data) {
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+		return $data;
+	}
+	
+	$getlanguage = clean_input($_GET["Language"]);
+	$getlanguage = mysqli_real_escape_string($con,$getlanguage);
+	$getversion = clean_input($_GET["Version"]);
+	$getversion = mysqli_real_escape_string($con,$getversion);
+	$gettask = clean_input($_GET["Task"]);
+	$gettask = mysqli_real_escape_string($con,$gettask);
 	
 	// Get current language version
 	if ($gettask=="langversion") {	

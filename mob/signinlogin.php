@@ -19,14 +19,26 @@ $database = $databases["default"]["default"]["database"];
 $con = mysqli_connect($host,$username,$password,$database);
 mysqli_set_charset($con,"utf8");
 
+function clean_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
+
 //
 // Ha atjott az email cim a mobil eszkozrol
 //
-$facebook_id_v = $_GET['facebook_id'];
-$name_v = $_GET['name'];
-$username_v = $_GET['username'];
-$email_v = $_GET['email'];
-$md5passwd_v = $_GET['jelszo'];
+$facebook_id_v = clean_input($_GET['facebook_id']);
+$facebook_id_v = mysqli_real_escape_string($con,$facebook_id_v);
+$name_v = clean_input($_GET['name']);
+$name_v = mysqli_real_escape_string($con,$name_v);
+$username_v = clean_input($_GET['username']);
+$username_v = mysqli_real_escape_string($con,$username_v);
+$email_v = clean_input($_GET['email']);
+$email_v = mysqli_real_escape_string($con,$email_v);
+$md5passwd_v = clean_input($_GET['jelszo']);
+$md5passwd_v = mysqli_real_escape_string($con,$md5passwd_v);
 
 // *****************************************************************************************
 $ownerid = '0';
