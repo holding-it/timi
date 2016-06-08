@@ -12,7 +12,7 @@ WARNING!
 The issue counter the top right of the screen dynamically works now. It was a bug in JSON query.
 The registration of a new sub-domain completed: timi.miskolc.hu. The sub-domain point out the IP address: 178.239.182.134
 
-The newly created installation package contain one of the most important file: status.php which is missing from the earlier package.
+The newly created installation package contains one of the most important file: status.php which is missing from the earlier installation package.
 
 # Usage
 Because of Apache virtual host setting the application is not reachable by IP address, exclusively by the URL: http://timi.miskolc.hu.
