@@ -1,6 +1,13 @@
 <?php
-$file_v = $_POST['file'];
-$name_v = $_POST['name'];
+function clean_input($data) {
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+	return $data;
+}
+
+$file_v = clean_input($_POST['file']);
+$name_v = clean_input($_POST['name']);
 $name = round($name_v/1000);
 $ImageData = $file_v;
 $ImageData = str_replace("data:image/jpg;base64,","",$ImageData);
