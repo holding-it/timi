@@ -6,7 +6,7 @@ After some bug fix, the new install script is uploaded as installscript1005.sh
 
 WARNING!
 - After a new installation procedure the earlier created polygons and multi-polygons will be deleted.
-- It is also deleted from the users that you created earlier.
+- Earlier created user accounts will be deleted.
 
 # Changelog
 The issue counter the top right of the screen dynamically works now. It was a bug in JSON query.
