@@ -51,12 +51,13 @@ if (filter_var($email_v, FILTER_VALIDATE_EMAIL))
  // Ha jo az email cim formatuma
  mysqli_query($con,"SET NAMES utf8");
  mysqli_query($con,"SET collation_connection = 'utf8'");
- $result = mysqli_query($con,"select mob_owners.id, mob_owners.password from mob_owners where mob_owners.email = '".$email_v."'");
+ $result = mysqli_query($con,"select mob_owners.id, mob_owners.password, mob_owners.role from mob_owners where mob_owners.email = '".$email_v."'");
  while($row = mysqli_fetch_array($result))
   {
     // Letezik ilyen felhasznalo
     $ownerid = $row[0];
     $status = '1';
+	$role = $row[2];
     if ($md5passwd_v == $row[1]) $status = '2';
   }
  
@@ -121,7 +122,7 @@ if ($status == 5)
 // Csinalunk egy JSON szabvanyu asszociativ tombot
 //
 // $output[] = array('status' => $status, 'ownerid' => $ownerid); // Igy lesz tomb!
-$output = array('status' => $status, 'ownerid' => $ownerid); // Igy meg nem lesz tomb!
+$output = array('status' => $status, 'ownerid' => $ownerid, 'role' => $role); // Igy meg nem lesz tomb!
 echo(json_encode($output));
 
 mysqli_close($con);
