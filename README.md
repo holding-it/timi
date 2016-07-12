@@ -9,6 +9,7 @@ WARNING!
 - Earlier created user accounts will be deleted.
 
 # Changelog
+Apple App Store logo in mobile view has got incorrect Z index behind the other objects. The Z index was corrected.
 Links to the Apple App Store and the Google Play Store are active. The mobile app downloadable to both platform. (iOS and Android)
 
 # Usage
