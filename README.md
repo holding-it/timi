@@ -13,8 +13,8 @@ The new install script (installscript1007.sh) contains some important row for pe
 
 New variables in install script:
 
-# OPTIONAL SETTINGS
-# FOR LOCALIZED FOOTER SETTINGS PURPOSE
+OPTIONAL SETTINGS
+FOR LOCALIZED FOOTER SETTINGS PURPOSE
 export -a LINKS=('Miskolc|www.miskolc.hu' 'Mvk|www.mvkzrt.hu')
 export CONTACT_TELEFON="+36-70 000 0000"
 export CONTACT_EMAIL="info@tisztamiskolc.hu"
