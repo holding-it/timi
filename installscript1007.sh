@@ -29,6 +29,16 @@ export APPLICATION_NAME="timi"
 export APPLICATION_DIRECTORY="/var/www/$APPLICATION_NAME"
 # OR /var/www/html/$APPLICATION_NAME
 #----------------------------------------------------
+# OPTIONAL SETTINGS
+# FOR LOCALIZED FOOTER SETTINGS PURPOSE
+export -a LINKS=('Miskolc|www.miskolc.hu' 'Mvk|www.mvkzrt.hu')
+export CONTACT_TELEFON="+36-70 000 0000"
+export CONTACT_EMAIL="info@tisztamiskolc.hu"
+export CONTACT_ADDRESS="Miskolc 20 Pf: 1-3"
+export -a PARTS_OF_CITY=('Városrész01|www.varosresz1.hu' 'Városrész02|www.varosresz2.hu')
+export -a POSSIBILITIES=('New announcement|#' 'Subscribe for newsletter|#' 'Location search|#')
+export COPYRIGHT="Digitális Miskolc © 2016 | TIMI."
+#----------------------------------------------------
 # INSTALLING THE NECESSARY PACKAGES
 apt-get update
 apt-get install apache2 -y
@@ -173,5 +183,73 @@ cd $APPLICATION_DIRECTORY/public_html
 drush updb --yes
 #TURN OFF TAG APPLICATION DISPLAY ERRORS WITH DRUSH
 drush vset error_level 0 --yes
+#SET THE CUSTOM VALUES FOR THE FOOTER
+touch update.sql
+chmod +x update.sql
+echo "
+UPDATE locales_target SET translation ='">update.sql
+
+echo '
+<div class="row">
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+<h4>Useful links</h4>
+
+<div>'>>update.sql
+
+for CURRENT in "${LINKS[@]}"
+do
+IFS='|' read -r -a LINK <<< "$CURRENT"
+echo '<a target="_blank" href="http://'${LINK[1]}'">'${LINK[0]}'</a><br />'>>update.sql
+done
+
+echo '</div>
+</div>
+
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+<h4>Contact</h4>
+
+<div>Telefon: '$CONTACT_TELEFON'<br />
+E-mail: '$CONTACT_EMAIL'<br />
+Postacím: '$CONTACT_ADDRESS'</div>
+</div>
+
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+<h4>Possibility</h4>
+
+<div>'>>update.sql
+
+for CURRENT in "${POSSIBILITIES[@]}"
+do
+IFS='|' read -r -a POSSIBILITY <<< "$CURRENT"
+echo '<a target="_blank" href="http://'${POSSIBILITY[1]}'">'${POSSIBILITY[0]}'</a><br />'>>update.sql
+done
+
+echo '</div></div>
+
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+<h4>Part of the city</h4>
+
+<div>'>>update.sql
+
+for CURRENT in "${PARTS_OF_CITY[@]}"
+do
+IFS='|' read -r -a PART <<< "$CURRENT"
+echo '<a target="_blank" href="http://'${PART[1]}'">'${PART[0]}'</a><br />'>>update.sql
+done
+echo '
+</div>
+</div>
+</div>
+'>>update.sql
+
+echo "' 
+WHERE lid = 18166 AND language = 'en';
+
+UPDATE block_custom SET body =  '<div class=\"row rtecenter\" id="copyright_bar">$COPYRIGHT</div>' 
+WHERE bid =7;">>update.sql
+drush sql-query --file=update.sql
+rm -rf update.sql
+#EMPTY THE CACHE FOR THE NEWLY CHANGED VALUES
+drush cc all
 # TURN OFF THE APPLICATION MAINTENANCE MODE WITH DRUSH
 drush vset maintenance_mode 0 --yes
