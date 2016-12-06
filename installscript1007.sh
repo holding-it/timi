@@ -243,7 +243,7 @@ echo '
 '>>update.sql
 
 echo "' 
-WHERE lid = 18166 AND language = 'en';
+WHERE lid = 13333 AND language = 'en';
 
 UPDATE block_custom SET body =  '<div class=\"row rtecenter\" id="copyright_bar">$COPYRIGHT</div>' 
 WHERE bid =7;">>update.sql
